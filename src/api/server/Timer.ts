@@ -1,5 +1,5 @@
-import { ITimer, IValetudoTimerApi } from '@/api';
-import { ServerApi } from '@/api/server';
+import { ITimer, IValetudoTimerApi } from "@/api";
+import { ServerApi } from "@/api/server";
 
 export class ServerTimerApi implements IValetudoTimerApi {
   private parent: ServerApi;
@@ -9,45 +9,44 @@ export class ServerTimerApi implements IValetudoTimerApi {
   }
 
   public async Get(): Promise<ITimer[]> {
-    const response = await this.parent.request('api/timers');
-    const timer = await response.json() as ITimer[];
+    const response = await this.parent.request("api/timers");
+    const timer = (await response.json()) as ITimer[];
     return timer;
   }
 
   public async CreateTimer(cron: string): Promise<boolean> {
-    await this.parent.request('api/timers', {
-      method: 'POST',
+    await this.parent.request("api/timers", {
+      method: "POST",
       body: JSON.stringify({
-        cron,
+        cron
       }),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
+        "Content-Type": "application/json; charset=utf-8"
+      }
     });
     return true;
   }
 
   public async DeleteTimer(id: string): Promise<boolean> {
-    await this.parent.request('api/timers/' + id, {
-      method: 'DELETE',
+    await this.parent.request("api/timers/" + id, {
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
+        "Content-Type": "application/json; charset=utf-8"
+      }
     });
     return true;
   }
 
   public async SetTimerState(id: string, enabled: boolean): Promise<boolean> {
-    await this.parent.request('api/timers/' + id, {
-      method: 'PUT',
+    await this.parent.request("api/timers/" + id, {
+      method: "PUT",
       body: JSON.stringify({
-        enabled,
+        enabled
       }),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
+        "Content-Type": "application/json; charset=utf-8"
+      }
     });
     return true;
   }
-
 }

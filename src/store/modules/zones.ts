@@ -1,6 +1,6 @@
-import { IGotoSpot, IZone, IZoneGroup } from '@/api';
-import { Module } from 'vuex';
-import { activeApi as api } from '../index';
+import { IGotoSpot, IZone, IZoneGroup } from "@/api";
+import { Module } from "vuex";
+import { activeApi as api } from "../index";
 
 export interface ZoneState {
   zones: IZoneGroup[];
@@ -15,7 +15,7 @@ export const zones: Module<ZoneState, any> = {
     zones: [],
     gotos: [],
     fetching: false,
-    fetchCount: 0,
+    fetchCount: 0
   },
   mutations: {
     setFetchStatus(state, fetching: boolean) {
@@ -36,7 +36,7 @@ export const zones: Module<ZoneState, any> = {
       state.zones = [...newZones];
     },
     addZone(state, newZone: IZoneGroup) {
-      const zonegroup = state.zones.find((a) => a.name === newZone.name);
+      const zonegroup = state.zones.find(a => a.name === newZone.name);
       if (zonegroup) {
         zonegroup.zones.push(newZone.zones[0]);
       } else {
@@ -44,73 +44,85 @@ export const zones: Module<ZoneState, any> = {
       }
     },
     removeZone(state, removeZone: IZoneGroup) {
-      const newgroups = state.zones.filter((a) => a.name !== removeZone.name);
+      const newgroups = state.zones.filter(a => a.name !== removeZone.name);
       state.zones = newgroups;
     },
     addGoto(state, newSpot: IGotoSpot) {
       state.gotos.push(newSpot);
     },
     removeGoto(state, removeSpot: IGotoSpot) {
-      const newspots = state.gotos.filter((a) => a.name !== removeSpot.name);
+      const newspots = state.gotos.filter(a => a.name !== removeSpot.name);
       state.gotos = newspots;
-    },
+    }
   },
   actions: {
     async updateZonesAndGoto({ commit, state }) {
-      commit('setFetchStatus', true);
+      commit("setFetchStatus", true);
       const gotoPromise = api.Goto.GetGotoSpots();
       const zonePromise = api.Zones.GetZones();
       const results = await Promise.all([gotoPromise, zonePromise]);
-      commit('setFetchStatus', false);
-      commit('setGotoPoints', results[0]);
-      commit('setZones', results[1]);
+      commit("setFetchStatus", false);
+      commit("setGotoPoints", results[0]);
+      commit("setZones", results[1]);
     },
-    async addZone({ commit, dispatch, state }, payload: {
-      zone: IZoneGroup;
-    }) {
+    async addZone(
+      { commit, dispatch, state },
+      payload: {
+        zone: IZoneGroup;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
-        commit('addZone', payload.zone);
+        commit("setFetchStatus", true);
+        commit("addZone", payload.zone);
         await api.Zones.SaveZones(state.zones);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateZonesAndGoto');
+        commit("setFetchStatus", false);
+        dispatch("updateZonesAndGoto");
       }
     },
-    async removeZone({ commit, dispatch, state }, payload: {
-      zone: IZoneGroup;
-    }) {
+    async removeZone(
+      { commit, dispatch, state },
+      payload: {
+        zone: IZoneGroup;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
-        commit('removeZone', payload.zone);
+        commit("setFetchStatus", true);
+        commit("removeZone", payload.zone);
         await api.Zones.SaveZones(state.zones);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateZonesAndGoto');
+        commit("setFetchStatus", false);
+        dispatch("updateZonesAndGoto");
       }
     },
-    async addGotoSpot({ commit, dispatch, state }, payload: {
-      spot: IGotoSpot,
-    }) {
+    async addGotoSpot(
+      { commit, dispatch, state },
+      payload: {
+        spot: IGotoSpot;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
-        commit('addGoto', payload.spot);
+        commit("setFetchStatus", true);
+        commit("addGoto", payload.spot);
         await api.Goto.SaveGotoSpots(state.gotos);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateZonesAndGoto');
+        commit("setFetchStatus", false);
+        dispatch("updateZonesAndGoto");
       }
     },
-    async removeGotoSpot({ commit, dispatch, state }, payload: {
-      spot: IGotoSpot,
-    }) {
+    async removeGotoSpot(
+      { commit, dispatch, state },
+      payload: {
+        spot: IGotoSpot;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
-        commit('removeGoto', payload.spot);
+        commit("setFetchStatus", true);
+        commit("removeGoto", payload.spot);
         await api.Goto.SaveGotoSpots(state.gotos);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateZonesAndGoto');
+        commit("setFetchStatus", false);
+        dispatch("updateZonesAndGoto");
       }
     },
     async zoneCleanup({ commit, dispatch }, payload: { zones: IZone[] }) {
@@ -118,6 +130,6 @@ export const zones: Module<ZoneState, any> = {
     },
     async gotoSpot({ commit, dispatch }, payload: { point: [number, number] }) {
       await api.Goto.Goto(payload.point);
-    },
-  },
+    }
+  }
 };

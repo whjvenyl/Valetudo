@@ -1,5 +1,5 @@
-import { IValetudoSoundApi } from '@/api';
-import { MockApi } from '@/api/mock';
+import { IValetudoSoundApi } from "@/api";
+import { MockApi } from "@/api/mock";
 
 export class MockSoundApi implements IValetudoSoundApi {
   private parent: MockApi;
@@ -27,5 +27,4 @@ export class MockSoundApi implements IValetudoSoundApi {
     console.log(`Testing volume!`);
     return true;
   }
-
 }

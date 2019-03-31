@@ -1,6 +1,6 @@
-import { IStatusResponse } from '@/api';
-import { Module } from 'vuex';
-import { activeApi as api } from '../index';
+import { IStatusResponse } from "@/api";
+import { Module } from "vuex";
+import { activeApi as api } from "../index";
 
 export interface VacuumState extends IStatusResponse {
   connected: boolean;
@@ -15,12 +15,12 @@ export const vacuum: Module<VacuumState, any> = {
     battery: 0,
     in_cleaning: false,
     state: 0,
-    human_error: '',
+    human_error: "",
     dnd_enabled: false,
     map_present: false,
     clean_area: 0,
     clean_time: 0,
-    fan_power: 0,
+    fan_power: 0
   },
   mutations: {
     setStateFromApi(state, response: IStatusResponse) {
@@ -33,50 +33,53 @@ export const vacuum: Module<VacuumState, any> = {
     },
     setFetchStatus(state, fetching: boolean) {
       state.fetching = fetching;
-    },
+    }
   },
   actions: {
     async updateVacuumStatus({ commit, state }) {
-      commit('setFetchStatus', true);
+      commit("setFetchStatus", true);
       const status = await api.GetCurrentStatus();
-      commit('setFetchStatus', false);
-      commit('setStateFromApi', status);
+      commit("setFetchStatus", false);
+      commit("setStateFromApi", status);
     },
-    async executeCommand({ dispatch }, command:
-        { command: 'start' | 'pause' | 'stop' | 'home' | 'find' | 'spot' } |
-        { command: 'fanspeed', speed: number }) {
+    async executeCommand(
+      { dispatch },
+      command:
+        | { command: "start" | "pause" | "stop" | "home" | "find" | "spot" }
+        | { command: "fanspeed"; speed: number }
+    ) {
       switch (command.command) {
-        case 'start': {
+        case "start": {
           await api.Command.StartCleaning();
           break;
         }
-        case 'pause': {
+        case "pause": {
           await api.Command.Pause();
           break;
         }
-        case 'stop': {
+        case "stop": {
           await api.Command.Stop();
           break;
         }
-        case 'home': {
+        case "home": {
           await api.Command.Home();
           break;
         }
-        case 'find': {
+        case "find": {
           await api.Command.Find();
           break;
         }
-        case 'spot': {
+        case "spot": {
           await api.Command.SpotClean();
           break;
         }
-        case 'fanspeed': {
+        case "fanspeed": {
           const test = command.speed;
           await api.Command.setFanSpeed(command.speed);
           break;
         }
       }
-      await dispatch('updateVacuumStatus');
-    },
-  },
+      await dispatch("updateVacuumStatus");
+    }
+  }
 };

@@ -12,16 +12,16 @@ import {
   IValetudoWifiApi,
   IValetudoZonesApi,
   VacuumStateEnum
-} from '@/api';
-import { MockCommandApi } from '@/api/mock/Command';
-import { MockConsumablesApi } from '@/api/mock/Consumables';
-import { chargingResponse } from '@/api/mock/fakeResponses';
-import { MockManualControlApi } from '@/api/mock/ManualControl';
-import { MockMapApi } from '@/api/mock/Map';
-import { MockSoundApi } from '@/api/mock/Sound';
-import { MockTimerApi } from '@/api/mock/Timer';
-import { MockWifiApi } from '@/api/mock/Wifi';
-import { MockZonesAndGotoApi } from '@/api/mock/Zones';
+} from "@/api";
+import { MockCommandApi } from "@/api/mock/Command";
+import { MockConsumablesApi } from "@/api/mock/Consumables";
+import { chargingResponse } from "@/api/mock/fakeResponses";
+import { MockManualControlApi } from "@/api/mock/ManualControl";
+import { MockMapApi } from "@/api/mock/Map";
+import { MockSoundApi } from "@/api/mock/Sound";
+import { MockTimerApi } from "@/api/mock/Timer";
+import { MockWifiApi } from "@/api/mock/Wifi";
+import { MockZonesAndGotoApi } from "@/api/mock/Zones";
 
 // tslint:disable-next-line:max-classes-per-file
 export class MockApi implements IValetudoApi {
@@ -29,7 +29,9 @@ export class MockApi implements IValetudoApi {
   public Command: IValetudoCommandApi = new MockCommandApi(this);
   public Map: IValetudoMapApi = new MockMapApi(this);
   public Zones: IValetudoZonesApi = this.Goto as MockZonesAndGotoApi;
-  public ManualControl: IValetudoManualControlApi = new MockManualControlApi(this);
+  public ManualControl: IValetudoManualControlApi = new MockManualControlApi(
+    this
+  );
   public Timer: IValetudoTimerApi = new MockTimerApi(this);
   public Consumables: IValetudoConsumablesApi = new MockConsumablesApi(this);
   public Wifi: IValetudoWifiApi = new MockWifiApi(this);
@@ -45,13 +47,18 @@ export class MockApi implements IValetudoApi {
 
   constructor() {
     setInterval(() => {
-      if (this.currentResponse.state === VacuumStateEnum.Charging && this.fakeBattery < 100) {
+      if (
+        this.currentResponse.state === VacuumStateEnum.Charging &&
+        this.fakeBattery < 100
+      ) {
         this.fakeBattery++;
         if (this.fakeBattery > 100) {
           this.fakeBattery = 100;
         }
-      } else if (this.currentResponse.state === VacuumStateEnum.Cleaning
-          || this.currentResponse.state === VacuumStateEnum['Spot cleaning']) {
+      } else if (
+        this.currentResponse.state === VacuumStateEnum.Cleaning ||
+        this.currentResponse.state === VacuumStateEnum["Spot cleaning"]
+      ) {
         this.fakeBattery -= 0.1;
       } else {
         this.fakeBattery -= 0.001;
@@ -61,11 +68,11 @@ export class MockApi implements IValetudoApi {
 
   public GetCurrentStatus(): Promise<IStatusResponse> {
     // tslint:disable-next-line:no-console
-    console.log('Updating...', this.Command);
+    console.log("Updating...", this.Command);
     return new Promise<IStatusResponse>((res, rej) => {
       setTimeout(() => {
         if (this.fakeBattery === 10) {
-          rej('Error');
+          rej("Error");
         }
         this.currentResponse.battery = Math.round(this.fakeBattery);
         this.currentResponse.in_cleaning = this.inCleaning;
@@ -81,8 +88,8 @@ export class MockApi implements IValetudoApi {
     return new Promise<IDeviceInfo>((res, rej) => {
       setTimeout(() => {
         res({
-          build: '1337',
-          version: 'MOCK',
+          build: "1337",
+          version: "MOCK"
         });
       }, 100);
     });
@@ -90,7 +97,7 @@ export class MockApi implements IValetudoApi {
 
   public GetToken(): Promise<string> {
     return new Promise((res, rej) => {
-      res('1234567890abcdef1234567890abcdef');
+      res("1234567890abcdef1234567890abcdef");
     });
   }
 }

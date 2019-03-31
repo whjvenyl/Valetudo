@@ -1,5 +1,5 @@
-import { IValetudoWifiApi, IWifiSettings } from '@/api';
-import { MockApi } from '@/api/mock';
+import { IValetudoWifiApi, IWifiSettings } from "@/api";
+import { MockApi } from "@/api/mock";
 
 export class MockWifiApi implements IValetudoWifiApi {
   private parent: MockApi;
@@ -10,16 +10,20 @@ export class MockWifiApi implements IValetudoWifiApi {
 
   public Get(): Promise<IWifiSettings> {
     return new Promise((res, rej) => {
-      setTimeout(() => res({
-        connected: true,
-        connection_info: {
-          bssid: 'aa:bb:cc:dd:ee:ff',
-          ssid: 'Wifi SSID',
-          freq: '1234',
-          signal: '-45 dBm',
-          tx_bitrate: '50.0 MBit/s',
-        }
-      }), this.parent.fakeDelay);
+      setTimeout(
+        () =>
+          res({
+            connected: true,
+            connection_info: {
+              bssid: "aa:bb:cc:dd:ee:ff",
+              ssid: "Wifi SSID",
+              freq: "1234",
+              signal: "-45 dBm",
+              tx_bitrate: "50.0 MBit/s"
+            }
+          }),
+        this.parent.fakeDelay
+      );
     });
   }
 
@@ -30,5 +34,4 @@ export class MockWifiApi implements IValetudoWifiApi {
       setTimeout(() => res(true), this.parent.fakeDelay);
     });
   }
-
 }

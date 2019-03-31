@@ -1,5 +1,5 @@
-import { Component as Component } from 'vue-router/types/router';
-import { Module } from 'vuex';
+import { Component } from "vue-router/types/router";
+import { Module } from "vuex";
 
 export interface AppState {
   sideBarOpen: boolean;
@@ -8,7 +8,7 @@ export interface AppState {
 export const app: Module<AppState, any> = {
   namespaced: true,
   state: {
-    sideBarOpen: false,
+    sideBarOpen: false
   },
   mutations: {
     openSideBar(state) {
@@ -22,6 +22,6 @@ export const app: Module<AppState, any> = {
     },
     setSideBar(state, open: boolean) {
       state.sideBarOpen = open;
-    },
-  },
+    }
+  }
 };

@@ -1,6 +1,6 @@
-import { IMapAndPathData } from '@/api';
-import { Module } from 'vuex';
-import { activeApi as api } from '../index';
+import { IMapAndPathData } from "@/api";
+import { Module } from "vuex";
+import { activeApi as api } from "../index";
 
 export interface MapState {
   data: IMapAndPathData | null;
@@ -11,7 +11,7 @@ export const map: Module<MapState, any> = {
   namespaced: true,
   state: {
     data: null,
-    fetching: false,
+    fetching: false
   },
   mutations: {
     setStateFromApi(state, data: IMapAndPathData) {
@@ -19,16 +19,16 @@ export const map: Module<MapState, any> = {
     },
     setFetchStatus(state, fetching: boolean) {
       state.fetching = fetching;
-    },
+    }
   },
   actions: {
     async updateMapData({ commit, state }) {
-      commit('setFetchStatus', true);
+      commit("setFetchStatus", true);
       const status = await api.Map.GetLatestMapData();
       // status.freeze();
       Object.freeze(status);
-      commit('setFetchStatus', false);
-      commit('setStateFromApi', status);
-    },
-  },
+      commit("setFetchStatus", false);
+      commit("setStateFromApi", status);
+    }
+  }
 };

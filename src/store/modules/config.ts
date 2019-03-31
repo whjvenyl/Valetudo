@@ -1,4 +1,4 @@
-import { Module } from 'vuex';
+import { Module } from "vuex";
 
 export interface ConfigState {
   statusRefreshInstances: string[];
@@ -15,14 +15,16 @@ export const config: Module<ConfigState, any> = {
     mapRefreshInstances: [],
     updateInterval: 5000,
     refreshId: 0,
-    mapRefreshId: 0,
+    mapRefreshId: 0
   },
   mutations: {
     incrementStatusRefreshCounter(state, instance: string) {
       state.statusRefreshInstances.push(instance);
     },
     decrementStatusRefreshCounter(state, instance: string) {
-      state.statusRefreshInstances = state.statusRefreshInstances.filter((a) => a !== instance);
+      state.statusRefreshInstances = state.statusRefreshInstances.filter(
+        a => a !== instance
+      );
       if (state.statusRefreshInstances.length <= 0) {
         state.refreshId++;
       }
@@ -31,24 +33,29 @@ export const config: Module<ConfigState, any> = {
       state.mapRefreshInstances.push(instance);
     },
     decrementtMapRefreshCounter(state, instance: string) {
-      state.mapRefreshInstances = state.mapRefreshInstances.filter((a) => a !== instance);
+      state.mapRefreshInstances = state.mapRefreshInstances.filter(
+        a => a !== instance
+      );
       if (state.mapRefreshInstances.length <= 0) {
         state.mapRefreshId++;
       }
-    },
+    }
   },
   actions: {
     async startStatusRefresh({ commit, state, dispatch }, instance: string) {
       const currentCounter = state.statusRefreshInstances.length;
-      commit('incrementStatusRefreshCounter', instance);
+      commit("incrementStatusRefreshCounter", instance);
       if (currentCounter === 0) {
         const currentRefreshId = state.refreshId;
         const update = async () => {
-          if (state.statusRefreshInstances.length <= 0 || state.refreshId !== currentRefreshId) {
+          if (
+            state.statusRefreshInstances.length <= 0 ||
+            state.refreshId !== currentRefreshId
+          ) {
             return;
           }
           try {
-            await dispatch('vacuum/updateVacuumStatus', null, { root: true });
+            await dispatch("vacuum/updateVacuumStatus", null, { root: true });
           } finally {
             setTimeout(update, state.updateInterval);
           }
@@ -58,15 +65,18 @@ export const config: Module<ConfigState, any> = {
     },
     async startMapRefresh({ commit, state, dispatch }, instance: string) {
       const currentCounter = state.mapRefreshInstances.length;
-      commit('incrementMapRefreshCounter', instance);
+      commit("incrementMapRefreshCounter", instance);
       if (currentCounter === 0) {
         const currentRefreshId = state.mapRefreshId;
         const update = async () => {
-          if (state.mapRefreshInstances.length <= 0 || state.mapRefreshId !== currentRefreshId) {
+          if (
+            state.mapRefreshInstances.length <= 0 ||
+            state.mapRefreshId !== currentRefreshId
+          ) {
             return;
           }
           try {
-            await dispatch('map/updateMapData', null, { root: true });
+            await dispatch("map/updateMapData", null, { root: true });
           } finally {
             setTimeout(update, state.updateInterval);
           }
@@ -75,10 +85,10 @@ export const config: Module<ConfigState, any> = {
       }
     },
     async stopStatusRefresh({ commit, state, dispatch }, instance: string) {
-      commit('decrementStatusRefreshCounter', instance);
+      commit("decrementStatusRefreshCounter", instance);
     },
     async stopMapRefresh({ commit, state, dispatch }, instance: string) {
-      commit('decrementtMapRefreshCounter', instance);
-    },
-  },
+      commit("decrementtMapRefreshCounter", instance);
+    }
+  }
 };

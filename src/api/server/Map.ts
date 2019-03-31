@@ -1,5 +1,5 @@
-import { IMapAndPathData, IValetudoMapApi } from '@/api';
-import { ServerApi } from '@/api/server';
+import { IMapAndPathData, IValetudoMapApi } from "@/api";
+import { ServerApi } from "@/api/server";
 
 function base64toArrayBuffer(data: string) {
   const raw = window.atob(data);
@@ -20,13 +20,12 @@ export class ServerMapApi implements IValetudoMapApi {
   }
 
   public async GetLatestMapData(): Promise<IMapAndPathData> {
-    const res = await this.parent.request('api/map/latest');
+    const res = await this.parent.request("api/map/latest");
     const resdata = await res.json();
     const data: IMapAndPathData = {
       map: base64toArrayBuffer(resdata.map),
-      path: base64toArrayBuffer(resdata.path),
+      path: base64toArrayBuffer(resdata.path)
     };
     return data;
   }
-
 }

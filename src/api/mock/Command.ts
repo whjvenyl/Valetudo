@@ -1,5 +1,5 @@
-import { IValetudoCommandApi } from '@/api';
-import { MockApi } from '@/api/mock';
+import { IValetudoCommandApi } from "@/api";
+import { MockApi } from "@/api/mock";
 import {
   chargingResponse,
   cleaningResponse,
@@ -7,8 +7,8 @@ import {
   pausedResponse,
   returnHomeResponse,
   sleepingResponse,
-  spotCleaningResponse,
-} from '@/api/mock/fakeResponses';
+  spotCleaningResponse
+} from "@/api/mock/fakeResponses";
 
 export class MockCommandApi implements IValetudoCommandApi {
   private parent: MockApi;
@@ -25,7 +25,8 @@ export class MockCommandApi implements IValetudoCommandApi {
     setInterval(() => {
       if (this.parent.currentResponse.state === cleaningResponse.state) {
         this.parent.fakeTime = Math.round((performance.now() - start) / 1000);
-        this.parent.fakeArea += 1000 + Math.floor(Math.random() * Math.floor(8000));
+        this.parent.fakeArea +=
+          1000 + Math.floor(Math.random() * Math.floor(8000));
       }
     }, 1000);
     return Promise.resolve();
@@ -64,7 +65,7 @@ export class MockCommandApi implements IValetudoCommandApi {
   }
 
   public Find(): Promise<any> {
-    alert('Hey...I\'m here!');
+    alert("Hey...I'm here!");
     return Promise.resolve();
   }
 
@@ -78,9 +79,8 @@ export class MockCommandApi implements IValetudoCommandApi {
 
   public setFanSpeed(speed: number): Promise<any> {
     // tslint:disable-next-line:no-console
-    console.log('Setting fan speed', speed);
+    console.log("Setting fan speed", speed);
     this.parent.fanSpeed = speed;
     return Promise.resolve();
   }
-
 }

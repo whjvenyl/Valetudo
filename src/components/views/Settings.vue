@@ -48,12 +48,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from "vue-property-decorator";
 
-  @Component
-  export default class ManualControl extends Vue {
-    public openSettings(page: string) {
-      this.$router.push({ name: page });
-    }
+@Component
+export default class ManualControl extends Vue {
+  public openSettings(page: string) {
+    this.$router.push({ name: page });
   }
+}
 </script>

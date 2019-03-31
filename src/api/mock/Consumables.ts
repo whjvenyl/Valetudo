@@ -1,5 +1,5 @@
-import { IConsumables, IValetudoConsumablesApi } from '@/api';
-import { MockApi } from '@/api/mock';
+import { IConsumables, IValetudoConsumablesApi } from "@/api";
+import { MockApi } from "@/api/mock";
 
 export class MockConsumablesApi implements IValetudoConsumablesApi {
   private parent: MockApi;
@@ -10,18 +10,21 @@ export class MockConsumablesApi implements IValetudoConsumablesApi {
 
   public Get(): Promise<IConsumables> {
     return new Promise((res, rej) => {
-      setTimeout(() => res({
+      setTimeout(
+        () =>
+          res({
             consumables: {
               main_brush_work_time: 23854,
               side_brush_work_time: 23854,
               filter_work_time: 23854,
-              sensor_dirty_time: 21752,
+              sensor_dirty_time: 21752
             },
             summary: [
               21752,
               422265000,
               36,
-              [1537424717,
+              [
+                1537424717,
                 1536430488,
                 1536323669,
                 1536286394,
@@ -40,9 +43,12 @@ export class MockConsumablesApi implements IValetudoConsumablesApi {
                 1535022502,
                 1534958235,
                 1534958037,
-                1534957235]]
+                1534957235
+              ]
+            ]
           }),
-          this.parent.fakeDelay);
+        this.parent.fakeDelay
+      );
     });
   }
 

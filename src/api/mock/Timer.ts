@@ -1,12 +1,14 @@
-import { ITimer, IValetudoTimerApi } from '@/api';
-import { MockApi } from '@/api/mock';
+import { ITimer, IValetudoTimerApi } from "@/api";
+import { MockApi } from "@/api/mock";
 
-let fakeTimer: ITimer[] = [{
-  id: '1',
-  cron: '0 0 1 * *',
-  enabled: true,
-  human_desc: 'At 00:00 on day-of-month 1.',
-}];
+let fakeTimer: ITimer[] = [
+  {
+    id: "1",
+    cron: "0 0 1 * *",
+    enabled: true,
+    human_desc: "At 00:00 on day-of-month 1."
+  }
+];
 
 export class MockTimerApi implements IValetudoTimerApi {
   private parent: MockApi;
@@ -27,7 +29,7 @@ export class MockTimerApi implements IValetudoTimerApi {
       id: Date.now().toString(),
       cron,
       enabled: false,
-      human_desc: '',
+      human_desc: ""
     });
     fakeTimer = newTimer;
     return true;
@@ -35,13 +37,13 @@ export class MockTimerApi implements IValetudoTimerApi {
 
   public async DeleteTimer(id: string): Promise<boolean> {
     const newTimer = JSON.parse(JSON.stringify(fakeTimer)) as ITimer[];
-    fakeTimer = newTimer.filter((a) => a.id !== id);
+    fakeTimer = newTimer.filter(a => a.id !== id);
     return true;
   }
 
   public async SetTimerState(id: string, enabled: boolean): Promise<boolean> {
     const newTimer = JSON.parse(JSON.stringify(fakeTimer)) as ITimer[];
-    const timer = newTimer.find((a) => a.id === id);
+    const timer = newTimer.find(a => a.id === id);
     if (!timer) {
       return false;
     }
@@ -49,5 +51,4 @@ export class MockTimerApi implements IValetudoTimerApi {
     fakeTimer = newTimer;
     return true;
   }
-
 }

@@ -1,5 +1,5 @@
-import { IValetudoWifiApi, IWifiSettings } from '@/api';
-import { ServerApi } from '@/api/server';
+import { IValetudoWifiApi, IWifiSettings } from "@/api";
+import { ServerApi } from "@/api/server";
 
 export class ServerWifiApi implements IValetudoWifiApi {
   private parent: ServerApi;
@@ -9,22 +9,21 @@ export class ServerWifiApi implements IValetudoWifiApi {
   }
 
   public async Get(): Promise<IWifiSettings> {
-    const res = await this.parent.request('api/wifi_status');
-    return await res.json() as IWifiSettings;
+    const res = await this.parent.request("api/wifi_status");
+    return (await res.json()) as IWifiSettings;
   }
 
   public async Set(ssid: string, password: string): Promise<boolean> {
-    await this.parent.request('api/wifi_configuration', {
-      method: 'PUT',
+    await this.parent.request("api/wifi_configuration", {
+      method: "PUT",
       body: JSON.stringify({
         ssid,
-        password,
+        password
       }),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
+        "Content-Type": "application/json; charset=utf-8"
+      }
     });
     return true;
   }
-
 }

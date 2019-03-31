@@ -1,30 +1,30 @@
 export enum VacuumStateEnum {
-  'Starting' = 1,
-  'Sleeping' = 2,
-  'Idle' = 3,
-  'Remote control active' = 4,
-  'Cleaning' = 5,
-  'Returning home' = 6,
-  'Manual mode' = 7,
-  'Charging' = 8,
-  'Charging problem' = 9,
-  'Paused' = 10,
-  'Spot cleaning' = 11,
-  'Error' = 12,
-  'Shutting down' = 13,
-  'Updating' = 14,
-  'Docking' = 15,
-  'Going to target' = 16,
-  'Zoned cleaning' = 17,
-  'Full' = 100,
+  "Starting" = 1,
+  "Sleeping" = 2,
+  "Idle" = 3,
+  "Remote control active" = 4,
+  "Cleaning" = 5,
+  "Returning home" = 6,
+  "Manual mode" = 7,
+  "Charging" = 8,
+  "Charging problem" = 9,
+  "Paused" = 10,
+  "Spot cleaning" = 11,
+  "Error" = 12,
+  "Shutting down" = 13,
+  "Updating" = 14,
+  "Docking" = 15,
+  "Going to target" = 16,
+  "Zoned cleaning" = 17,
+  "Full" = 100
 }
 
 export enum FanSpeeds {
-  'No power' = 0,
-  'Low power' = 38,
-  'Medium power' = 60,
-  'High power' = 75,
-  'Super power' = 100,
+  "No power" = 0,
+  "Low power" = 38,
+  "Medium power" = 60,
+  "High power" = 75,
+  "Super power" = 100
 }
 
 export interface IStatusResponse {
@@ -128,7 +128,11 @@ export interface IValetudoManualControlApi {
 
   StopManualControl(): Promise<boolean>;
 
-  SetManualControl(angle: number, velocity: number, duration: number): Promise<boolean>;
+  SetManualControl(
+    angle: number,
+    velocity: number,
+    duration: number
+  ): Promise<boolean>;
 }
 
 export interface IValetudoTimerApi {
@@ -189,4 +193,4 @@ export interface IValetudoApi {
 }
 
 // export { MockApi as Api } from "./mock";
-export { ServerApi as Api } from './server';
+export { ServerApi as Api } from "./server";

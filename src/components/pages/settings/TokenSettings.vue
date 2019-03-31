@@ -5,8 +5,7 @@
         <v-ons-back-button>Settings</v-ons-back-button>
       </div>
       <div class="center">Token</div>
-      <div class="right">
-      </div>
+      <div class="right"></div>
     </v-ons-toolbar>
     <div class="content">
       <v-ons-progress-bar indeterminate v-if="fetching"></v-ons-progress-bar>
@@ -18,7 +17,11 @@
             Token
           </div>
           <div class="right">
-            <span id="settings-token-label" style="text-align:right;user-select:text;">{{ token }}</span>
+            <span
+              id="settings-token-label"
+              style="text-align:right;user-select:text;"
+              >{{ token }}</span
+            >
           </div>
         </v-ons-list-item>
       </v-ons-list>
@@ -27,20 +30,19 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { namespace } from 'vuex-class';
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
 
-  const settings = namespace('settings');
+const settings = namespace("settings");
 
-  @Component
-  export default class TokenSettings extends Vue {
-    @settings.State private token!: string;
-    @settings.State private fetching!: boolean;
-    @settings.Action private updateToken!: () => Promise<boolean>;
+@Component
+export default class TokenSettings extends Vue {
+  @settings.State private token!: string;
+  @settings.State private fetching!: boolean;
+  @settings.Action private updateToken!: () => Promise<boolean>;
 
-    public mounted() {
-      this.updateToken();
-    }
-
+  public mounted() {
+    this.updateToken();
   }
+}
 </script>

@@ -1,5 +1,5 @@
-import { IMapAndPathData, IValetudoMapApi } from '@/api';
-import { MockApi } from '@/api/mock';
+import { IMapAndPathData, IValetudoMapApi } from "@/api";
+import { MockApi } from "@/api/mock";
 
 function base64toArrayBuffer(data: string) {
   const raw = window.atob(data);
@@ -13,7 +13,7 @@ function base64toArrayBuffer(data: string) {
 }
 
 async function createMapData() {
-  const res = await fetch('http://localhost/api/map/latest');
+  const res = await fetch("http://localhost/api/map/latest");
   const resdata = await res.json();
   const mapBuffer = base64toArrayBuffer(resdata.map);
   // tslint:disable-next-line:no-console
@@ -21,7 +21,7 @@ async function createMapData() {
 
   const data: IMapAndPathData = {
     map: base64toArrayBuffer(resdata.map),
-    path: base64toArrayBuffer(resdata.path),
+    path: base64toArrayBuffer(resdata.path)
   };
 
   /*const buffer = new ArrayBuffer(1024 * 1024 * (4 + 3));
@@ -57,9 +57,8 @@ export class MockMapApi implements IValetudoMapApi {
 
   public async GetLatestMapData(): Promise<IMapAndPathData> {
     // tslint:disable-next-line:no-console
-    console.log('Getting map data...');
+    console.log("Getting map data...");
     const data: IMapAndPathData = await createMapData();
     return data;
   }
-
 }

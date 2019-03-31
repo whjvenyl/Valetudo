@@ -1,6 +1,6 @@
-import { IConsumables, IDeviceInfo, ITimer, IWifiSettings } from '@/api';
-import { Module } from 'vuex';
-import { activeApi as api } from '../index';
+import { IConsumables, IDeviceInfo, ITimer, IWifiSettings } from "@/api";
+import { Module } from "vuex";
+import { activeApi as api } from "../index";
 
 export interface SettingsState {
   wifi: IWifiSettings | null;
@@ -24,10 +24,10 @@ export const settings: Module<SettingsState, any> = {
     timers: [],
     consumables: null,
     wifi: null,
-    token: '????????????????????????????????',
+    token: "????????????????????????????????",
     sound: {
-      volume: null,
-    },
+      volume: null
+    }
   },
   mutations: {
     setFetchStatus(state, fetching: boolean) {
@@ -58,17 +58,16 @@ export const settings: Module<SettingsState, any> = {
     },
     setVolume(state, volume: number) {
       state.sound.volume = volume;
-    },
+    }
   },
   actions: {
-
     // INFO
     async updateInfo({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setInfo', await api.GetDeviceInfo());
+        commit("setFetchStatus", true);
+        commit("setInfo", await api.GetDeviceInfo());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
 
@@ -76,130 +75,151 @@ export const settings: Module<SettingsState, any> = {
 
     async updateTimers({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setTimer', await api.Timer.Get());
+        commit("setFetchStatus", true);
+        commit("setTimer", await api.Timer.Get());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
-    async createTimer({ commit, dispatch }, payload: {
-      cron: string;
-    }) {
+    async createTimer(
+      { commit, dispatch },
+      payload: {
+        cron: string;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Timer.CreateTimer(payload.cron);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateTimers');
+        commit("setFetchStatus", false);
+        dispatch("updateTimers");
       }
     },
-    async deleteTimer({ commit, dispatch }, payload: {
-      id: string;
-    }) {
+    async deleteTimer(
+      { commit, dispatch },
+      payload: {
+        id: string;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Timer.DeleteTimer(payload.id);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateTimers');
+        commit("setFetchStatus", false);
+        dispatch("updateTimers");
       }
     },
-    async setTimerState({ commit, dispatch }, payload: {
-      id: string;
-      enabled: boolean;
-    }) {
+    async setTimerState(
+      { commit, dispatch },
+      payload: {
+        id: string;
+        enabled: boolean;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Timer.SetTimerState(payload.id, payload.enabled);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateTimers');
+        commit("setFetchStatus", false);
+        dispatch("updateTimers");
       }
     },
 
     // CONSUMABLES:
     async updateConsumables({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setConsumables', await api.Consumables.Get());
+        commit("setFetchStatus", true);
+        commit("setConsumables", await api.Consumables.Get());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
-    async resetConsumable({ commit, dispatch }, payload: {
-      consumable: string,
-    }) {
+    async resetConsumable(
+      { commit, dispatch },
+      payload: {
+        consumable: string;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Consumables.Reset(payload.consumable);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateConsumables');
+        commit("setFetchStatus", false);
+        dispatch("updateConsumables");
       }
     },
 
     // WIFI
     async updateWifi({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setWifi', await api.Wifi.Get());
+        commit("setFetchStatus", true);
+        commit("setWifi", await api.Wifi.Get());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
-    async setWifi({ commit, dispatch }, payload: {
-      ssid: string,
-      password: string,
-    }) {
+    async setWifi(
+      { commit, dispatch },
+      payload: {
+        ssid: string;
+        password: string;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         const timers = await api.Wifi.Set(payload.ssid, payload.password);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateConsumables');
+        commit("setFetchStatus", false);
+        dispatch("updateConsumables");
       }
     },
 
     // TOKEN
     async updateToken({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setToken', await api.GetToken());
+        commit("setFetchStatus", true);
+        commit("setToken", await api.GetToken());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
 
     // Sound
     async updateVolume({ commit, state }) {
       try {
-        commit('setFetchStatus', true);
-        commit('setVolume', await api.Sound.GetVolume());
+        commit("setFetchStatus", true);
+        commit("setVolume", await api.Sound.GetVolume());
       } finally {
-        commit('setFetchStatus', false);
+        commit("setFetchStatus", false);
       }
     },
-    async setVolume({ commit, dispatch }, payload: {
-      volume: number;
-    }) {
+    async setVolume(
+      { commit, dispatch },
+      payload: {
+        volume: number;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Sound.SetVolume(payload.volume);
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateVolume');
+        commit("setFetchStatus", false);
+        dispatch("updateVolume");
       }
     },
-    async testVolume({ commit, dispatch }, payload: {
-      volume: number;
-    }) {
+    async testVolume(
+      { commit, dispatch },
+      payload: {
+        volume: number;
+      }
+    ) {
       try {
-        commit('setFetchStatus', true);
+        commit("setFetchStatus", true);
         await api.Sound.TestVolume();
       } finally {
-        commit('setFetchStatus', false);
-        dispatch('updateVolume');
+        commit("setFetchStatus", false);
+        dispatch("updateVolume");
       }
-    },
-  },
+    }
+  }
 };
