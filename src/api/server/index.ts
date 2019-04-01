@@ -1,7 +1,7 @@
 import {
   IDeviceInfo,
   IStatusResponse,
-  IValetudoApi,
+  IValetudoApi, IValetudoCleanSummaryApi,
   IValetudoCommandApi,
   IValetudoConsumablesApi,
   IValetudoGotoApi,
@@ -12,6 +12,7 @@ import {
   IValetudoWifiApi,
   IValetudoZonesApi
 } from "@/api";
+import { ServerCleanSummaryApi } from "@/api/server/CleanSummary";
 import { ServerCommandApi } from "@/api/server/Command";
 import { ServerConsumablesApi } from "@/api/server/Consumables";
 import { ServerManualControlApi } from "@/api/server/ManualControl";
@@ -32,10 +33,11 @@ export class ServerApi implements IValetudoApi {
   );
   public Timer: IValetudoTimerApi = new ServerTimerApi(this);
   public Consumables: IValetudoConsumablesApi = new ServerConsumablesApi(this);
+  public CleanSummary: IValetudoCleanSummaryApi = new ServerCleanSummaryApi(this);
   public Wifi: IValetudoWifiApi = new ServerWifiApi(this);
   public Sound: IValetudoSoundApi = new ServerSoundApi(this);
 
-  private host = "/";
+  private host = "http://localhost:8080/";
 
   public async GetCurrentStatus(): Promise<IStatusResponse> {
     const response = await this.request("api/current_status");

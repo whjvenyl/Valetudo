@@ -26,6 +26,11 @@ const settingsRoutes: RouteConfig[] = [
       import("@/components/pages/settings/ConsumableSettings.vue")
   },
   {
+    path: "cleaningSettings",
+    name: "cleaningSettings",
+    component: () => import("@/components/pages/settings/CleaningSettings.vue")
+  },
+  {
     path: "soundSettings",
     name: "soundSettings",
     component: () => import("@/components/pages/settings/SoundSettings.vue")

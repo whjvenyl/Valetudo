@@ -7,6 +7,7 @@
       <div class="center">Consumables</div>
       <div class="right"></div>
     </v-ons-toolbar>
+
     <div class="content">
       <v-ons-progress-bar
         indeterminate="indeterminate"

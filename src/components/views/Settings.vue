@@ -22,6 +22,13 @@
         </div>
         <div class="content">View and/or reset consumable usage counters</div>
       </v-ons-card>
+      <v-ons-card @click="openSettings('cleaningSettings')">
+        <div class="title">
+          <v-ons-icon icon="fa-history"></v-ons-icon>
+          Cleaning History
+        </div>
+        <div class="content">View the cleaning history</div>
+      </v-ons-card>
       <v-ons-card @click="openSettings('wifiSettings')">
         <div class="title">
           <v-ons-icon icon="fa-wifi"></v-ons-icon>

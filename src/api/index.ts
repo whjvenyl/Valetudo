@@ -160,6 +160,21 @@ export interface IConsumables {
   summary: [number, number, number, number[]];
 }
 
+export interface ICleanSummary {
+  summary: [number, number, number, number[]];
+  records?: [];
+}
+
+export interface ICleanRecord {
+  startTime: number;
+  endTime: number;
+  duration: number;
+  area: number;
+  errorCode: number;
+  errorDescription: string;
+  finishedFlag: boolean;
+}
+
 export interface IValetudoSoundApi {
   GetVolume(): Promise<number>;
 
@@ -174,6 +189,11 @@ export interface IValetudoConsumablesApi {
   Reset(consumable: string): Promise<boolean>;
 }
 
+export interface IValetudoCleanSummaryApi {
+  Get(): Promise<ICleanSummary>;
+  GetRecord(id: number): Promise<ICleanRecord>;
+}
+
 export interface IValetudoApi {
   Command: IValetudoCommandApi;
   Zones: IValetudoZonesApi;
@@ -181,6 +201,7 @@ export interface IValetudoApi {
   Map: IValetudoMapApi;
   ManualControl: IValetudoManualControlApi;
   Consumables: IValetudoConsumablesApi;
+  CleanSummary: IValetudoCleanSummaryApi;
   Timer: IValetudoTimerApi;
   Wifi: IValetudoWifiApi;
   Sound: IValetudoSoundApi;

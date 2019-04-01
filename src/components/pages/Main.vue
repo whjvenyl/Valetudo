@@ -10,6 +10,7 @@
         @update:open="this.setSideBar"
         ><SideBar
       /></v-ons-splitter-side>
+
       <v-ons-splitter-content>
         <v-ons-page>
           <v-ons-toolbar>

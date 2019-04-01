@@ -1,4 +1,10 @@
-import { IConsumables, IDeviceInfo, ITimer, IWifiSettings } from "@/api";
+import {
+  ICleanSummary,
+  IConsumables,
+  IDeviceInfo,
+  ITimer,
+  IWifiSettings
+} from "@/api";
 import { Module } from "vuex";
 import { activeApi as api } from "../index";
 
@@ -9,6 +15,7 @@ export interface SettingsState {
   fetching: boolean;
   fetchCount: number;
   consumables: IConsumables | null;
+  cleanSummary: ICleanSummary | null;
   token: string;
   sound: {
     volume: number | null;
@@ -23,6 +30,7 @@ export const settings: Module<SettingsState, any> = {
     fetchCount: 0,
     timers: [],
     consumables: null,
+    cleanSummary: null,
     wifi: null,
     token: "????????????????????????????????",
     sound: {
@@ -46,6 +54,14 @@ export const settings: Module<SettingsState, any> = {
     },
     setConsumables(state, consumables: IConsumables) {
       state.consumables = { ...consumables };
+    },
+    setCleanSummary(state, cleanSummary: any) {
+      state.cleanSummary = {
+        summary: { ...cleanSummary }
+      };
+    },
+    setCleanRecords(state, records: any) {
+      Object.assign(state.cleanSummary, { records: records });
     },
     setInfo(state, info: IDeviceInfo) {
       state.info = { ...info };
@@ -72,7 +88,6 @@ export const settings: Module<SettingsState, any> = {
     },
 
     // TIMER
-
     async updateTimers({ commit, state }) {
       try {
         commit("setFetchStatus", true);
@@ -146,6 +161,33 @@ export const settings: Module<SettingsState, any> = {
       } finally {
         commit("setFetchStatus", false);
         dispatch("updateConsumables");
+      }
+    },
+
+    // CLEAN RECORDS
+    async updateCleanSummary({ commit, dispatch, state }) {
+      try {
+        commit("setFetchStatus", true);
+        commit("setCleanSummary", await api.CleanSummary.Get());
+        dispatch("updateCleanRecords", state);
+      } finally {
+        commit("setFetchStatus", false);
+      }
+    },
+    async updateCleanRecords({commit, state}) {
+      try {
+        commit("setFetchStatus", true);
+
+        const recordIds = state.cleanSummary!.summary[3];
+        const records = [];
+        if (recordIds) {
+          for (let i = 0; i < recordIds.length; i++) {
+            records[i] = await api.CleanSummary.GetRecord(recordIds[i]);
+          }
+        }
+        commit("setCleanRecords", records);
+      } finally {
+        commit("setFetchStatus", false);
       }
     },
 
