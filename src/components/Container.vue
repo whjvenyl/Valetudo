@@ -19,7 +19,7 @@ import { namespace } from "vuex-class";
 const appModule = namespace("app");
 
 @Component
-export default class App extends Vue {
+export default class Container extends Vue {
   public pageStack: ComponentType[] = [];
 
   public goBack() {

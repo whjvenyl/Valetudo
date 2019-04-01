@@ -51,7 +51,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class ManualControl extends Vue {
+export default class Settings extends Vue {
   public openSettings(page: string) {
     this.$router.push({ name: page });
   }

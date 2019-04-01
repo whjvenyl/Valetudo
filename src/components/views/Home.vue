@@ -1,9 +1,6 @@
 <template>
   <v-ons-page :shown="this.active">
-    <v-ons-progress-bar
-      indeterminate="indeterminate"
-      v-if="!this.vacuumState.connected || this.vacuumState.fetching"
-    ></v-ons-progress-bar>
+    <v-ons-progress-bar indeterminate="indeterminate" v-if="!this.vacuumState.connected || this.vacuumState.fetching"></v-ons-progress-bar>
     <div class="content">
       <template v-if="this.vacuumState.connected">
         <section>
@@ -17,18 +14,11 @@
               <v-ons-icon icon="fa-exclamation-triangle"></v-ons-icon>
             </span>
           </p>
+
           <div style="width:100%; text-align:center;">
             <p id="robot-state-details">
-              <span class="robot-state-details-m2"
-                >Area:
-                {{ this.formatCleanArea(this.vacuumState.clean_area) }} m²</span
-              >
-              <span class="robot-state-details-time"
-                >Time:
-                {{
-                  this.convertTimeToString(this.vacuumState.clean_time)
-                }}</span
-              >
+              <span class="robot-state-details-m2">Area: {{ this.formatCleanArea(this.vacuumState.clean_area) }} m²</span>
+              <span class="robot-state-details-time">Time: {{this.convertTimeToString(this.vacuumState.clean_time)}}</span>
             </p>
           </div>
         </section>

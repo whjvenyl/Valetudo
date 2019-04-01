@@ -118,7 +118,7 @@ import { namespace } from "vuex-class";
 const zones = namespace("zones");
 
 @Component
-export default class ZonesConfiguration extends Vue {
+export default class GotoConfiguration extends Vue {
   @zones.State public fetching!: boolean;
   @zones.State public gotos!: IGotoSpot[];
   @zones.Action public addGotoSpot!: (payload: { spot: IGotoSpot }) => any;
