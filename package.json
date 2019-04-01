@@ -19,7 +19,8 @@
     "pkg": "pkg --targets node8-linux-armv7 --no-bytecode --options max-old-space-size=72 --public-packages=exif-parser,omggif,trim,prettycron,mqtt .",
     "pkg:debug": "pkg --targets host .",
     "serve": "vue-cli-service serve",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "postinstall": "patch-package"
   },
   "author": "",
   "dependencies": {
@@ -32,6 +33,7 @@
     "lodash-es": "4.17.11",
     "mqtt": "^2.18.8",
     "onsenui": "2.10.7",
+    "patch-package": "^6.1.0",
     "prettycron": "^0.10.0",
     "request": "2.88.0",
     "tslint-config-prettier": "^1.18.0",
