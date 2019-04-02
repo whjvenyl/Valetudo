@@ -213,5 +213,5 @@ export interface IValetudoApi {
   GetDeviceInfo(): Promise<IDeviceInfo>;
 }
 
-// export { MockApi as Api } from "./mock";
-export { ServerApi as Api } from "./server";
+export { MockApi as Api } from "./mock";
+// export { ServerApi as Api } from "./server";

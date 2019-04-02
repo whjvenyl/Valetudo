@@ -37,13 +37,18 @@
             <v-ons-row>
               <v-ons-col></v-ons-col>
               <v-ons-col width="100px" vertical-align="center">Area</v-ons-col>
-              <v-ons-col width="150px" vertical-align="center">{{cleanSummary.records[index].area}}</v-ons-col>
+              <v-ons-col width="150px" vertical-align="center">{{cleanSummary.records[index].area}} m<sup>2</sup></v-ons-col>
               <v-ons-col></v-ons-col>
             </v-ons-row>
             <v-ons-row>
               <v-ons-col></v-ons-col>
               <v-ons-col width="100px" vertical-align="center">Completed</v-ons-col>
-              <v-ons-col width="150px" vertical-align="center">{{cleanSummary.records[index].finishedFlag}}</v-ons-col>
+              <v-ons-col width="150px" vertical-align="center">
+                <v-ons-icon
+                    :icon="cleanSummary.records[index].finishedFlag ? 'fa-check-circle' : 'fa-times-circle'"
+                    :style="cleanSummary.records[index].finishedFlag ? 'color: green' : 'color:red'"
+                ></v-ons-icon>
+              </v-ons-col>
               <v-ons-col></v-ons-col>
             </v-ons-row>
           </v-ons-list-item>

@@ -2,6 +2,7 @@ import {
   IDeviceInfo,
   IStatusResponse,
   IValetudoApi,
+  IValetudoCleanSummaryApi,
   IValetudoCommandApi,
   IValetudoConsumablesApi,
   IValetudoGotoApi,
@@ -13,6 +14,7 @@ import {
   IValetudoZonesApi,
   VacuumStateEnum
 } from "@/api";
+import { MockCleanSummaryApi } from "@/api/mock/CleanSummary";
 import { MockCommandApi } from "@/api/mock/Command";
 import { MockConsumablesApi } from "@/api/mock/Consumables";
 import { chargingResponse } from "@/api/mock/fakeResponses";
@@ -34,6 +36,7 @@ export class MockApi implements IValetudoApi {
   );
   public Timer: IValetudoTimerApi = new MockTimerApi(this);
   public Consumables: IValetudoConsumablesApi = new MockConsumablesApi(this);
+  public CleanSummary: IValetudoCleanSummaryApi = new MockCleanSummaryApi(this);
   public Wifi: IValetudoWifiApi = new MockWifiApi(this);
   public Sound: IValetudoSoundApi = new MockSoundApi(this);
 

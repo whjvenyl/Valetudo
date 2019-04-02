@@ -1,7 +1,8 @@
 import {
   IDeviceInfo,
   IStatusResponse,
-  IValetudoApi, IValetudoCleanSummaryApi,
+  IValetudoApi,
+  IValetudoCleanSummaryApi,
   IValetudoCommandApi,
   IValetudoConsumablesApi,
   IValetudoGotoApi,
@@ -33,7 +34,9 @@ export class ServerApi implements IValetudoApi {
   );
   public Timer: IValetudoTimerApi = new ServerTimerApi(this);
   public Consumables: IValetudoConsumablesApi = new ServerConsumablesApi(this);
-  public CleanSummary: IValetudoCleanSummaryApi = new ServerCleanSummaryApi(this);
+  public CleanSummary: IValetudoCleanSummaryApi = new ServerCleanSummaryApi(
+    this
+  );
   public Wifi: IValetudoWifiApi = new ServerWifiApi(this);
   public Sound: IValetudoSoundApi = new ServerSoundApi(this);
 
