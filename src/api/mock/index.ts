@@ -1,4 +1,5 @@
 import {
+  IAppLocale,
   IDeviceInfo,
   IStatusResponse,
   IValetudoApi,
@@ -92,7 +93,24 @@ export class MockApi implements IValetudoApi {
       setTimeout(() => {
         res({
           build: "1337",
-          version: "MOCK"
+          version: "MOCK",
+          valetudoVersion: "???"
+        });
+      }, 100);
+    });
+  }
+
+  public GetAppLocale(): Promise<IAppLocale> {
+    return new Promise<IAppLocale>((res, rej) => {
+      setTimeout(() => {
+        res({
+          bom: "A.03.0005",
+          language: "en",
+          location: "de",
+          logserver: "awsde0.fds.api.xiaomi.com",
+          name: "custom_A.03.0005_CE",
+          timezone: "Europe/Berlin",
+          wifiplan: ""
         });
       }, 100);
     });

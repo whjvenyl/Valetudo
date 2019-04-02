@@ -1,4 +1,5 @@
 import {
+  IAppLocale,
   IDeviceInfo,
   IStatusResponse,
   IValetudoApi,
@@ -58,6 +59,12 @@ export class ServerApi implements IValetudoApi {
     const res = await this.request("api/get_fw_version");
     const deviceInfo: IDeviceInfo = await res.json();
     return deviceInfo;
+  }
+
+  public async GetAppLocale(): Promise<IAppLocale> {
+    const res = await this.request("api/get_app_locale");
+    const applocale: any[] = await res.json();
+    return applocale[0];
   }
 
   public async request(url: string, options?: RequestInit): Promise<Response> {

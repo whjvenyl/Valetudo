@@ -1,4 +1,5 @@
 import {
+  IAppLocale,
   ICleanSummary,
   IConsumables,
   IDeviceInfo,
@@ -11,6 +12,7 @@ import { activeApi as api } from "../index";
 export interface SettingsState {
   wifi: IWifiSettings | null;
   info: IDeviceInfo | null;
+  locale: IAppLocale | null;
   timers: ITimer[];
   fetching: boolean;
   fetchCount: number;
@@ -26,6 +28,7 @@ export const settings: Module<SettingsState, any> = {
   namespaced: true,
   state: {
     info: null,
+    locale: null,
     fetching: false,
     fetchCount: 0,
     timers: [],
@@ -67,6 +70,9 @@ export const settings: Module<SettingsState, any> = {
     setInfo(state, info: IDeviceInfo) {
       state.info = { ...info };
     },
+    setAppLocale(state, locale: IAppLocale) {
+      state.locale = { ...locale };
+    },
     setWifi(state, wifi: IWifiSettings) {
       state.wifi = { ...wifi };
     },
@@ -83,6 +89,14 @@ export const settings: Module<SettingsState, any> = {
       try {
         commit("setFetchStatus", true);
         commit("setInfo", await api.GetDeviceInfo());
+      } finally {
+        commit("setFetchStatus", false);
+      }
+    },
+    async updateAppLocale({ commit, state }) {
+      try {
+        commit("setFetchStatus", true);
+        commit("setAppLocale", await api.GetAppLocale());
       } finally {
         commit("setFetchStatus", false);
       }
@@ -175,7 +189,7 @@ export const settings: Module<SettingsState, any> = {
         commit("setFetchStatus", false);
       }
     },
-    async updateCleanRecords({commit, state}) {
+    async updateCleanRecords({ commit, state }) {
       try {
         commit("setFetchStatus", true);
 

@@ -178,6 +178,17 @@ export interface IValetudoTimerApi {
 export interface IDeviceInfo {
   version: string;
   build: string;
+  valetudoVersion: string;
+}
+
+export interface IAppLocale {
+  bom: string;
+  language: string;
+  location: string;
+  logserver: string;
+  name: string;
+  timezone: string;
+  wifiplan: string;
 }
 
 export interface IConsumables {
@@ -241,6 +252,8 @@ export interface IValetudoApi {
   GetToken(): Promise<string>;
 
   GetDeviceInfo(): Promise<IDeviceInfo>;
+
+  GetAppLocale(): Promise<IAppLocale>;
 }
 
 // export { MockApi as Api } from "./mock";
