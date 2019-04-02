@@ -22,7 +22,7 @@
         <v-ons-list-title style="margin-top:5px;">Last Cleaning Runs</v-ons-list-title>
 
         <v-ons-list>
-          <v-ons-list-item v-for="(recordId, index) in cleanSummary.summary[3]" v-if="index < 5">
+          <v-ons-list-item v-for="(recordId, index) in cleanSummary.summary[3]" v-if="index < 5 && cleanSummary.records[index]">
             <v-ons-row>
               <v-ons-col></v-ons-col>
               <v-ons-col width="400px" vertical-align="center">{{cleanSummary.records[index].startTime}}</v-ons-col>

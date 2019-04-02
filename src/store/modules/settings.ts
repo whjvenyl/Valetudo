@@ -57,7 +57,8 @@ export const settings: Module<SettingsState, any> = {
     },
     setCleanSummary(state, cleanSummary: any) {
       state.cleanSummary = {
-        summary: { ...cleanSummary }
+        summary: { ...cleanSummary },
+        records: []
       };
     },
     setCleanRecords(state, records: any) {
