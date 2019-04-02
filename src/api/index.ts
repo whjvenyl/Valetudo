@@ -1,22 +1,52 @@
 export enum VacuumStateEnum {
+  "Unknown" = 0,
   "Starting" = 1,
   "Sleeping" = 2,
   "Idle" = 3,
   "Remote control active" = 4,
   "Cleaning" = 5,
-  "Returning home" = 6,
+  "Returning to base" = 6,
   "Manual mode" = 7,
   "Charging" = 8,
   "Charging problem" = 9,
   "Paused" = 10,
   "Spot cleaning" = 11,
-  "Error" = 12,
+  "Malfunction" = 12,
   "Shutting down" = 13,
-  "Updating" = 14,
+  "Software update" = 14,
   "Docking" = 15,
-  "Going to target" = 16,
-  "Zoned cleaning" = 17,
-  "Full" = 100
+  "Goto" = 16,
+  "Zoned clean" = 17,
+  "Fully charged" = 100
+}
+
+export enum VacuumErrorsEnum {
+  "None" = 0,
+  "Laser sensor fault" = 1,
+  "Collision sensor fault" = 2,
+  "Wheel floating" = 3,
+  "Cliff sensor fault" = 4,
+  "Main brush blocked" = 5,
+  "Side brush blocked" = 6,
+  "Wheel blocked" = 7,
+  "Device stuck" = 8,
+  "Dust bin missing" = 9,
+  "Filter blocked" = 10,
+  "Magnetic field detected" = 11,
+  "Low battery" = 12,
+  "Charging problem" = 13,
+  "Battery failure" = 14,
+  "Wall sensor fault" = 15,
+  "Uneven surface" = 16,
+  "Side brush failure" = 17,
+  "Suction fan failure" = 18,
+  "Unpowered charging station" = 19,
+  "Unknown" = 20,
+  "Laser pressure sensor problem" = 21,
+  "Charge sensor problem" = 22,
+  "Dock problem" = 23,
+  "Bin full" = 254,
+  "Internal error" = 255
 }
 
 export enum FanSpeeds {
@@ -162,7 +192,7 @@ export interface IConsumables {
 
 export interface ICleanSummary {
   summary: [number, number, number, number[]];
-  records?: [];
+  records?: ICleanRecord[];
 }
 
 export interface ICleanRecord {
@@ -213,5 +243,5 @@ export interface IValetudoApi {
   GetDeviceInfo(): Promise<IDeviceInfo>;
 }
 
-export { MockApi as Api } from "./mock";
-// export { ServerApi as Api } from "./server";
+// export { MockApi as Api } from "./mock";
+export { ServerApi as Api } from "./server";
