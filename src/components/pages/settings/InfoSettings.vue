@@ -46,7 +46,7 @@
               Name:
             </div>
             <div class="right" id="app_locale_name">
-              {{locale.name}}
+              {{ locale.name }}
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -54,7 +54,7 @@
               Bom:
             </div>
             <div class="right" id="app_locale_bom">
-              {{locale.bom}}
+              {{ locale.bom }}
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -62,7 +62,7 @@
               Location:
             </div>
             <div class="right" id="app_locale_location">
-              {{locale.location}}
+              {{ locale.location }}
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -70,7 +70,7 @@
               Language:
             </div>
             <div class="right" id="app_locale_language">
-              {{locale.language}}
+              {{ locale.language }}
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -78,7 +78,7 @@
               Timezone:
             </div>
             <div class="right" id="app_locale_timezone">
-              {{locale.timezone}}
+              {{ locale.timezone }}
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -86,7 +86,7 @@
               Logserver:
             </div>
             <div class="right" id="app_locale_logserver">
-              {{locale.logserver}}
+              {{ locale.logserver }}
             </div>
           </ons-list-item>
         </ons-list>

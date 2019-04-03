@@ -118,7 +118,7 @@ export default class Home extends Vue {
   }
 
   public hasError() {
-    return this.vacuumState.state === VacuumStateEnum.Error;
+    return this.vacuumState.state === VacuumStateEnum.Malfunction;
   }
 
   @Watch("zones")
@@ -193,7 +193,7 @@ export default class Home extends Vue {
     } else {
       pauseButton.enabled = false;
       spotButton.enabled = true;
-      if (this.vacuumState.state !== VacuumStateEnum["Returning home"]) {
+      if (this.vacuumState.state !== VacuumStateEnum["Returning to base"]) {
         startButton.enabled = true;
       } else {
         startButton.enabled = false;
@@ -207,7 +207,7 @@ export default class Home extends Vue {
       case VacuumStateEnum.Paused:
       case VacuumStateEnum.Sleeping:
       case VacuumStateEnum.Idle:
-      case VacuumStateEnum["Returning home"]: {
+      case VacuumStateEnum["Returning to base"]: {
         stopButton.enabled = false;
         break;
       }
@@ -218,7 +218,7 @@ export default class Home extends Vue {
 
     switch (this.vacuumState.state) {
       case VacuumStateEnum.Cleaning:
-      case VacuumStateEnum["Returning home"]:
+      case VacuumStateEnum["Returning to base"]:
       case VacuumStateEnum.Charging:
       case VacuumStateEnum["Charging problem"]: {
         homeButton.enabled = false;

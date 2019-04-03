@@ -9,54 +9,36 @@
     </v-ons-toolbar>
 
     <div class="content">
-      <v-ons-progress-bar
-        indeterminate="indeterminate"
-        v-if="fetching"
-      ></v-ons-progress-bar>
+      <v-ons-progress-bar indeterminate="indeterminate" v-if="fetching"></v-ons-progress-bar>
       <div style="text-align: center" v-if="!cleanSummary">
         <br />
         <ons-progress-circular indeterminate></ons-progress-circular>
       </div>
       <div v-if="cleanSummary">
-        <v-ons-list-title style="margin-top:5px;"
-          >Last Cleaning Runs</v-ons-list-title
-        >
+        <v-ons-list-title style="margin-top:5px;">Last Cleaning Runs</v-ons-list-title>
 
         <v-ons-list>
-          <v-ons-list-item
-            v-for="(recordId, index) in cleanSummary.summary[3]"
-            v-if="index < 5 && cleanSummary.records[index]"
-          >
+          <v-ons-list-item v-for="(recordId, index) in cleanSummary.summary[3]" v-if="index < 5 && cleanSummary.records[index]">
             <v-ons-row>
               <v-ons-col></v-ons-col>
-              <v-ons-col width="400px" vertical-align="center" style='text-align:center;'>{{
-                formatTimestamp(index, cleanSummary.records[index].startTime)
-              }}</v-ons-col>
+              <v-ons-col width="400px" vertical-align="center" style='text-align:center;'>{{ formatTimestamp(index, cleanSummary.records[index].startTime) }}</v-ons-col>
               <v-ons-col></v-ons-col>
             </v-ons-row>
             <v-ons-row>
               <v-ons-col></v-ons-col>
-              <v-ons-col width="100px" vertical-align="center"
-                >Duration</v-ons-col
-              >
-              <v-ons-col width="150px" vertical-align="center">{{
-                formatDuration(cleanSummary.records[index].duration)
-              }}</v-ons-col>
+              <v-ons-col width="100px" vertical-align="center">Duration</v-ons-col>
+              <v-ons-col width="150px" vertical-align="center">{{ formatDuration(cleanSummary.records[index].duration) }}</v-ons-col>
               <v-ons-col></v-ons-col>
             </v-ons-row>
             <v-ons-row>
               <v-ons-col></v-ons-col>
               <v-ons-col width="100px" vertical-align="center">Area</v-ons-col>
-              <v-ons-col width="150px" vertical-align="center"
-                >{{ formatArea(cleanSummary.records[index].area) }} m<sup>2</sup></v-ons-col
-              >
+              <v-ons-col width="150px" vertical-align="center">{{ formatArea(cleanSummary.records[index].area) }} m<sup>2</sup></v-ons-col>
               <v-ons-col></v-ons-col>
             </v-ons-row>
             <v-ons-row>
               <v-ons-col></v-ons-col>
-              <v-ons-col width="100px" vertical-align="center"
-                >Completed</v-ons-col
-              >
+              <v-ons-col width="100px" vertical-align="center">Completed</v-ons-col>
               <v-ons-col width="150px" vertical-align="center">
                 <v-ons-icon
                   :icon="
@@ -98,9 +80,9 @@ export default class CleaningSettings extends Vue {
   }
 
   private formatDuration(durationTotalSeconds: number) {
-    var durationSeconds = durationTotalSeconds % 60;
-    var durationMinutes = Math.floor(durationTotalSeconds / 60);
-    var durationHours = Math.floor(durationTotalSeconds / 3600);
+    const durationSeconds = durationTotalSeconds % 60;
+    const durationMinutes = Math.floor(durationTotalSeconds / 60);
+    const durationHours = Math.floor(durationTotalSeconds / 3600);
     return (
       durationHours +
       ":" +
@@ -115,9 +97,9 @@ export default class CleaningSettings extends Vue {
   }
 
   private formatTimestamp(index: number, startTime: number) {
-    var currentEntryId = this.cleanSummary.records!.length - index;
-    var fromTime = new Date(startTime).toUTCString();
-   return "#" + currentEntryId + " started on " + fromTime;
+    const currentEntryId = this.cleanSummary.records!.length - index;
+    const fromTime = new Date(startTime).toUTCString();
+    return "#" + currentEntryId + " started on " + fromTime;
   }
 
   private formatTwoDigitNumber(number: number) {
